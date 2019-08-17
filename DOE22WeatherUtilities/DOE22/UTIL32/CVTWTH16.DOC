@@ -1,0 +1,36 @@
+CVTWTH - Weather file coversion utility for micro-AXCESS and DOE-2
+Copyright (c) 1992 James J. Hirsch (805) 532-1045.  All Rights Reserved.
+
+This program can be used to convert weathers processed by the DOE-2 and
+micro-AXCESS weather processors between the different formats used by
+various versions of the programs.  The four arguments supplied to the 
+program define the input and output file types and names.
+
+This program can handle all current types of files processed by the DOE-2
+weather processor.
+
+useage: CVTWTH type1 infile type2 outfile
+        type1,2 is 1 for Acrosoft DOE2 C/D (Std PC) version - Liant/RM fortran
+                   2 for JJHirsch DOE2 386 version - Microway fortran
+                     or m-AXCESSv386, ADM/BBS/ELITE/PRC DOE-2
+                   3 for micro-AXCESS AT version - Microsoft fortran
+                   4 for Acrosoft DOE2 DX (386) version - Lahey fortran
+        infile is existing DOE-2/micro-AXCESS weather file
+        outfile is file (not yet existing) to be created
+                   full paths are allowed on both filenames
+
+The program will convert files of any of the three formats into a file
+of any of the remaining two formats.
+
+e.g.:
+
+  to convert Acrosoft DOE-2 (DX - 386 version) for use with ADM,ELITE,PRC,BBS
+  or other version developed by JJHirsch & Associates (or micro-AXCESS 386
+  version)
+
+  cvtwth 4 weather.ext 2 weather.bin
+
+  to convert micro-AXCESS AT version files for use on micro-AXCESS 386 or
+  JJHirsch DOE-2 versions type
+
+  cvtwth 3 c:\axcess\weather\weather.bin 2 c:\doe21d\weather\packed\weather.bin

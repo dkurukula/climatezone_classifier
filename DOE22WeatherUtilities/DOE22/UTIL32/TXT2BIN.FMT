@@ -1,0 +1,55 @@
+
+
+      THIS DOCUMENTS A FORMATTED WEATHER FILE (WEATHER.FMT) MADE FROM
+      A PACKED BINARY DOE2 WEATHER FILE (WEATHER.BIN) USING WTHFMT2.EXE
+      AND THE EXTRA FILE NEEDED (not really!) TO PACK IT WITH FMTWTH2.EXE
+ 
+on input.dat:              
+
+Record 1       IWSZ,IFTYP
+               FORMAT(12X,I1,17X,I1)     
+
+      IWSZ           WORD SIZE          1 = 60-BIT, 2 = 30-BIT
+      IFTYP          FILE TYPE          1 = OLD, 2 = NORMAL (NO SOLAR),
+                                        3 = THE DATA HAS SOLAR
+on weather.fmt:              
+
+Record 1       (IWDID(I),I=1,5),IWYR,WLAT,WLONG,IWTZN,IWSOL
+               FORMAT(5A4,I5,2F8.2,2I5)     
+
+Record 2       (CLN(I),I=1,12)
+               FORMAT(12F6.2)      
+
+Record 3       (GT(I),I=1,12)
+               FORMAT(12F6.1)
+
+Records 4,8763
+               KMON, KDAY, KH, WBT, DBT, PATM, CLDAMT, ISNOW, 
+               IRAIN, IWNDDR, HUMRAT, DENSTY, ENTHAL, SOLRAD,
+               DIRSOL, ICLDTY, WNDSPD
+               FORMAT(3I2,2F5.0,F6.1,F5.0,2I3,I4,F7.4,F6.3,F6.1,2F7.1,I3,F5.0)      
+      IWDID          LOCATION I.D.
+      IWYR           YEAR
+      WLAT           LATITUDE
+      WLONG          LONGITUDE
+      IWTZN          TIME ZONE NUMBER
+      IWSOL          SOLAR FLAG         IWSOL = IWSZ + (IFTYP-1)*2 - 1
+      CLN            CLEARNESS NO.
+      GT             GROUND TEMP.       (DEG R)
+      KMON           MONTH              (1-12)
+      KDAY           DAY OF MONTH
+      KH             HOUR OF DAY
+      WBT            WET BULB TEMP      (DEG F)
+      DBT            DRY BULB TEMP      (DEG F)
+      PATM           PRESSURE           (INCHES OF HG)
+      CLDAMT         CLOUD AMOUNT       (0 - 10)
+      ISNOW          SNOW FLAG          (1 = SNOWFALL)
+      IRAIN          RAIN FLAG          (1 = RAINFALL)
+      IWNDDR         WIND DIRECTION     (0 - 15; 0=N, 1=NNE, ETC)
+      HUMRAT         HUMIDITY RATIO     (LB H2O/LB AIR)
+      DENSTY         DENSITY OF AIR     (LB/CU FT)
+      ENTHAL         SPECIFIC ENTHALPY  (BTU/LB)
+      SOLRAD         TOTAL HOR. SOLAR   (BTU/HR-SQFT)
+      DIRSOL         DIR. NORMAL SOLAR  (BTU/HR-SQFT)
+      ICLDTY         CLOUD TYPE         (0 - 2)
+      WNDSPD         WIND SPEED         KNOTS

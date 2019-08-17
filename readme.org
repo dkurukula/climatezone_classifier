@@ -1,0 +1,47 @@
+* Converting .bin to text
+  The conversion utility found on the DOE-2 website is to convert a .bin file to text.
+  - source website:
+    http://doe2.com/index_Wth.html
+** DOE22 UTIL32 Explained 
+   - BIN2TXT.EXE is what does the actual conversion
+     - The actual Fortran 77 code is also included but lets not worry about compiling that or using the info to deconstruct it and rewrite in python since there's an EXE already. 
+   - MKAFT.BAT was used for orchestration, to set environment variables before starting BIN2TXT.EXE
+     - I generate this with ~bintotxt.py~ using the general syntax that was 
+** File  
+   I created ~bintotxt.py~ to automates the conversion of all weather files in ~weather_data~ to a text format
+** Format 
+   The following snippet of fortran code used in the actual conversion reveals the text file format:
+   #+begin_src fortran
+  500 CONTINUE    
+      ISNOW = INT(CALC(5) + .01)
+      IRAIN = INT(CALC(6) + .01)
+      IWNDDR = INT(CALC(7) + .01)
+      ICLDTY = INT(CALC(13) + .01)
+C              
+C              IM2            MOMTH              (1-12)
+C              ID             DAY OF MONTH
+C              IH             HOUR OF DAY
+C              CALC(1)        WET BULB TEMP      (DEG F)
+C              CALC(2)        DRY BULB TEMP      (DEG F)
+C              CALC(3)        PRESSURE           (INCHES OF HG)
+C              CALC(4)        CLOUD AMOUNT       (0 - 10)
+C              ISNOW          SNOW FLAG          (1 = SNOWFALL)
+C              IRAIN          RAIN FLAG          (1 = RAINFALL)
+C              IWNDDR         WIND DIRECTION     (0 - 15; 0=N, 1=NNE, ETC)
+C              CALC(8)        HUMIDITY RATIO     (LB H2O/LB AIR)
+C              CALC(9)        DENSITY OF AIR     (LB/CU FT)
+C              CALC(10)       SPECIFIC ENTHALPY  (BTU/LB)
+C              CALC(11)       TOTAL HOR. SOLAR   (BTU/HR-SQFT)
+C              CALC(12)       DIR. NORMAL SOLAR  (BTU/HR-SQFT)
+C              ICLDTY         CLOUD TYPE         (0 - 2)
+C              CALC(14)       WIND SPEED         KNOTS
+C
+  900 WRITE (11,9005) IM2, ID, IH, CALC(1), CALC(2), CALC(3), CALC(4),
+     1                ISNOW, IRAIN,IWNDDR, CALC(8), CALC(9), CALC(10),
+     2                CALC(11), CALC(12), ICLDTY, CALC(14)
+ 9005 FORMAT(3I2,2F5.0,F6.1,F5.0,2I3,I4,F7.4,F6.3,F6.1,2F7.1,I3,F5.0)
+   #+end_src
+
+** TODO Convert to CSV with headers
+   The bin file format is not very user friendly and csv would be a lot easier for most people to work with. 
+
