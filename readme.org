@@ -45,3 +45,8 @@ C
 ** TODO Convert to CSV with headers
    The bin file format is not very user friendly and csv would be a lot easier for most people to work with. 
 
+* Calculating Climate Zone
+  Use the dry bulb temp data from text files to calculate climate zone
+
+** File 
+   ~calc_cz.py~ uses the ft files in ~weather_data~ to calculate HDD and then climate zone.
